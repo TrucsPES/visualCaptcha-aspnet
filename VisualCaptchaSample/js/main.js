@@ -1,6 +1,5 @@
-﻿/// <reference path="typings/jquery/jquery.d.ts" />
-
-var Main = (function () {
+/// <reference path="typings/jquery/jquery.d.ts" />
+var Main = /** @class */ (function () {
     function Main() {
         this.$captchaContainer = $('#sample-captcha');
         this.$form = $("#form-sample");
@@ -26,27 +25,25 @@ var Main = (function () {
             }
         }).data("captcha");
     };
-
     Main.prototype.bindHandlers = function () {
         var _this = this;
         // Bind form submission behavior
         this.$form.submit(function () {
             if (_this.captcha.getCaptchaData().valid) {
                 _this.attemptTry();
-            } else {
+            }
+            else {
                 _this.setStatus({
                     success: false,
                     message: "Please select an option."
                 });
             }
         });
-
         // Bind click event to "Check if visualCaptcha is filled" button
         this.$checkIsFilled.click(function () {
             _this.showVisualCaptchaFilled();
         });
     };
-
     Main.prototype.attemptTry = function () {
         var _this = this;
         $.ajax({
@@ -67,24 +64,23 @@ var Main = (function () {
             _this.captcha.refresh();
         });
     };
-
     Main.prototype.setStatus = function (result) {
         if (result.success) {
             this.$statusContainer.addClass("valid");
-        } else {
+        }
+        else {
             this.$statusContainer.removeClass("valid");
         }
-
         this.$statusIcon.removeClass().addClass(result.success ? "icon-yes" : "icon-no");
         this.$statusText.text(result.message);
         this.$statusMessage.show();
     };
-
     Main.prototype.showVisualCaptchaFilled = function () {
-        window.alert(this.captcha.getCaptchaData().valid ? "VisualCaptcha is filled." : "Visual Captcha is not filled.");
+        window.alert(this.captcha.getCaptchaData().valid
+            ? "VisualCaptcha is filled."
+            : "Visual Captcha is not filled.");
     };
     return Main;
-})();
-
+}());
 new Main();
 //# sourceMappingURL=main.js.map
